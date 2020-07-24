@@ -7,6 +7,6 @@ namespace CentralDeErros.Domain.Entities
     public class Environment : EntityBase
     {
         public string Name { get; set; }
-        public ICollection<Error> Errors { get; set; }
+        public ICollection<Log> Logs { get; set; }
     }
 }

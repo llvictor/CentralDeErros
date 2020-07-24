@@ -4,14 +4,16 @@ using CentralDeErros.Datas.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentralDeErros.Datas.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200724225833_att nome tabela2")]
+    partial class attnometabela2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +87,7 @@ namespace CentralDeErros.Datas.Migrations
                     b.Property<int>("EnvironmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Events")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
                     b.Property<string>("Level")

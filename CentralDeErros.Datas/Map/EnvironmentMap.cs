@@ -19,7 +19,7 @@ namespace CentralDeErros.Datas.Map
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder.HasMany<Error>(e => e.Errors)
+            builder.HasMany<Log>(e => e.Logs)
                 .WithOne(ev => ev.Environment)
                 .HasForeignKey(ev => ev.EnvironmentId);
         }

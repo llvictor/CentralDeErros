@@ -7,9 +7,9 @@ using System.Text;
 
 namespace CentralDeErros.Datas.Repository
 {
-    public class RepositoryError : BaseRepository<Error>, IRepositoryError
+    public class RepositoryLog : BaseRepository<Log>, IRepositoryLog
     {
-        public RepositoryError(Context context)
+        public RepositoryLog(Context context)
             : base(context)
         {
 

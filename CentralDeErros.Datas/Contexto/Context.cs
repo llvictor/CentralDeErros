@@ -10,7 +10,7 @@ namespace CentralDeErros.Datas.Contexto
 {
     public class Context : IdentityDbContext
     {
-        public DbSet<Error> Erro { get; set; }
+        public DbSet<Log> Log { get; set; }
         public DbSet<Domain.Entities.Environment> Ambiente { get; set; } 
 
         public Context(DbContextOptions<Context> options)
@@ -20,7 +20,7 @@ namespace CentralDeErros.Datas.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ErrorMap());
+            modelBuilder.ApplyConfiguration(new LogMap());
             modelBuilder.ApplyConfiguration(new EnvironmentMap());
 
             base.OnModelCreating(modelBuilder);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Interfaces.Repository
 {
-    public interface IRepositoryError : IBaseRepository<Error>
+    public interface IRepositoryLog : IBaseRepository<Log>
     {
 
     }

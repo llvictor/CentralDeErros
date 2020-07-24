@@ -37,7 +37,7 @@ namespace CentralDeErros
         {
             services.AddControllers();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IRepositoryError, RepositoryError>();
+            services.AddScoped<IRepositoryLog, RepositoryLog>();
             services.AddScoped<IRepositoryEnvironment, RepositoryEnvironment>();
             services.AddScoped<IRepositoryUser, RepositoryUser>();
 

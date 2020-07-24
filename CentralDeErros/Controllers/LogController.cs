@@ -13,43 +13,43 @@ namespace CentralDeErros.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ErrorController : ControllerBase
+    public class LogController : ControllerBase
     {
-        private readonly IRepositoryError _repo;
+        private readonly IRepositoryLog _repo;
 
-        public ErrorController(IRepositoryError repo)
+        public LogController(IRepositoryLog repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Error> Get()
+        public IEnumerable<Log> Get()
         {
             return _repo.List();
         }
 
         [HttpGet("{id}")]
-        public Error Get(int id)
+        public Log Get(int id)
         {
             return _repo.GetById(id);
         }
 
         [HttpPost]
-        public IEnumerable<Error> Post([FromBody] Error ingrediente)
+        public IEnumerable<Log> Post([FromBody] Log ingrediente)
         {
             _repo.Insert(ingrediente);
             return _repo.List();
         }
 
         [HttpPut]
-        public IEnumerable<Error> Put([FromBody] Error ingrediente)
+        public IEnumerable<Log> Put([FromBody] Log ingrediente)
         {
             _repo.Update(ingrediente);
             return _repo.List();
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<Error> Delete(int id)
+        public IEnumerable<Log> Delete(int id)
         {
             _repo.Delete(id);
             return _repo.List();
