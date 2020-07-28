@@ -4,10 +4,10 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Enum
 {
-    public enum Level
+    public enum SearchBy
     {
-        Warning = 0,
-        Error = 1,
-        Info = 2
+        Level = 1,
+        Description = 2,
+        Origin = 3
     }
 }

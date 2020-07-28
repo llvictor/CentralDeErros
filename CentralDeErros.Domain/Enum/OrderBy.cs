@@ -4,10 +4,9 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Enum
 {
-    public enum Level
+    public enum OrderBy
     {
-        Warning = 0,
-        Error = 1,
-        Info = 2
+        Level = 1,
+        Frequency = 2
     }
 }

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace CentralDeErros.Datas.Repository
 {
-    public class RepositoryEnvironment : BaseRepository<Domain.Entities.Environment>, IRepositoryEnvironment
+    public class RepositoryLevel : BaseRepository<Domain.Entities.Level>, IRepositoryLevel
     {
-        public RepositoryEnvironment(Context context)
+        public RepositoryLevel(Context context)
             : base(context)
         {
 

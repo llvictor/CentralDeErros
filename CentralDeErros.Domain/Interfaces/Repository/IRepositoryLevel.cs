@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Interfaces.Repository
 {
-    public interface IRepositoryEnvironment : IBaseRepository<Entities.Environment>
+    public interface IRepositoryLevel : IBaseRepository<Level>
     {
 
     }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentralDeErros.Datas.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20200724225659_att nome tabela")]
-    partial class attnometabela
+    [Migration("20200728011333_Seeds")]
+    partial class Seeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace CentralDeErros.Datas.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CentralDeErros.Domain.Entities.Environment", b =>
+            modelBuilder.Entity("CentralDeErros.Domain.Entities.Level", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,28 +40,28 @@ namespace CentralDeErros.Datas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Environment");
+                    b.ToTable("Level");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Produção",
+                            CreatedAt = new DateTime(2020, 7, 27, 22, 13, 32, 548, DateTimeKind.Local).AddTicks(4511),
+                            Name = "Error",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Homologação",
+                            CreatedAt = new DateTime(2020, 7, 27, 22, 13, 32, 552, DateTimeKind.Local).AddTicks(761),
+                            Name = "Info",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Dev",
+                            CreatedAt = new DateTime(2020, 7, 27, 22, 13, 32, 552, DateTimeKind.Local).AddTicks(989),
+                            Name = "Warning",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -72,6 +72,9 @@ namespace CentralDeErros.Datas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Archived")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("smalldatetime");
@@ -84,15 +87,14 @@ namespace CentralDeErros.Datas.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(500)");
 
-                    b.Property<int>("EnvironmentId")
+                    b.Property<int>("Environment")
                         .HasColumnType("int");
 
-                    b.Property<int>("EventId")
+                    b.Property<int>("Frequency")
                         .HasColumnType("int");
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasColumnType("varchar(5)");
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Origin")
                         .IsRequired()
@@ -101,14 +103,14 @@ namespace CentralDeErros.Datas.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("User")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnvironmentId");
+                    b.HasIndex("LevelId");
 
-                    b.ToTable("Error");
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -309,9 +311,9 @@ namespace CentralDeErros.Datas.Migrations
 
             modelBuilder.Entity("CentralDeErros.Domain.Entities.Log", b =>
                 {
-                    b.HasOne("CentralDeErros.Domain.Entities.Environment", "Environment")
+                    b.HasOne("CentralDeErros.Domain.Entities.Level", "Level")
                         .WithMany("Logs")
-                        .HasForeignKey("EnvironmentId")
+                        .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

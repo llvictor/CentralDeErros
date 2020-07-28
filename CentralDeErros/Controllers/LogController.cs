@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using CentralDeErros.Api.DTO;
 using CentralDeErros.Domain.Entities;
+using CentralDeErros.Domain.Enum;
 using CentralDeErros.Domain.Interfaces.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Environment = CentralDeErros.Domain.Enum.Environment;
 
 namespace CentralDeErros.Api.Controllers
 {
@@ -15,10 +19,12 @@ namespace CentralDeErros.Api.Controllers
     [ApiController]
     public class LogController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IRepositoryLog _repo;
 
-        public LogController(IRepositoryLog repo)
+        public LogController(IMapper mapper, IRepositoryLog repo)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -35,16 +41,16 @@ namespace CentralDeErros.Api.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Log> Post([FromBody] Log ingrediente)
+        public ActionResult<IEnumerable<Log>> Post([FromBody] LogDTO log)
         {
-            _repo.Insert(ingrediente);
+            _repo.Insert(_mapper.Map<LogDTO, Log>(log));
             return _repo.List();
         }
 
         [HttpPut]
-        public IEnumerable<Log> Put([FromBody] Log ingrediente)
+        public IEnumerable<Log> Put([FromBody] Log log)
         {
-            _repo.Update(ingrediente);
+            _repo.Update(log);
             return _repo.List();
         }
 
@@ -54,5 +60,18 @@ namespace CentralDeErros.Api.Controllers
             _repo.Delete(id);
             return _repo.List();
         }
+
+        [HttpPost("GetLogsFiltered")]
+        public ActionResult<IEnumerable<Log>> Post([FromBody] LogFilterDTO LogFilter)
+        {
+            return Ok(_repo.getLogsFiltered(LogFilter.environment, LogFilter.orderBy, LogFilter.searchBy, LogFilter.search));
+        }
+
+        [HttpPost("Archive")]
+        public ActionResult Post(int id)
+        {
+            return Ok(_repo.ArchiveLog(id));
+        }
+
     }
 }

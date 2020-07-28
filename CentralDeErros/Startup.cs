@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.Api;
 using CentralDeErros.Datas.Contexto;
 using CentralDeErros.Datas.Repository;
@@ -36,9 +37,10 @@ namespace CentralDeErros
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IRepositoryLog, RepositoryLog>();
-            services.AddScoped<IRepositoryEnvironment, RepositoryEnvironment>();
+            services.AddScoped<IRepositoryLevel, RepositoryLevel>();
             services.AddScoped<IRepositoryUser, RepositoryUser>();
 
             services.AddDbContext<Context>(options =>
@@ -50,15 +52,22 @@ namespace CentralDeErros
 
             services.AddSwaggerGen(x =>
             {
-                x.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Central de Erros", Version = "v1" });
+                x.SwaggerDoc(name: "v1", new OpenApiInfo 
+                {
+                    Title = "Central de Erros",
+                    Description = "Error Logging API",
+                    Version = "v1"
+                });
 
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
-                    In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\""
+
                 });
 
                 x.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -71,12 +80,8 @@ namespace CentralDeErros
                                 Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
                             },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
-
                         },
-                        new List<string>()
+                        new string[] { }
                     }
                 });
             }); 
@@ -128,6 +133,13 @@ namespace CentralDeErros
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

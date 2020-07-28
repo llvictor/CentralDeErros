@@ -27,10 +27,6 @@ namespace CentralDeErros.Datas.Map
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder.Property(x => x.Level)
-                .HasColumnType("varchar(5)")
-                .IsRequired();
-
             builder.Property(x => x.CreatedAt)
                 .HasColumnType("smalldatetime")
                 .IsRequired();

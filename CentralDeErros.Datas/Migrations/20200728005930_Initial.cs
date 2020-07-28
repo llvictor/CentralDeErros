@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CentralDeErros.Datas.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,17 +47,18 @@ namespace CentralDeErros.Datas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Environment",
+                name: "Level",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Environment", x => x.Id);
+                    table.PrimaryKey("PK_Level", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -167,27 +168,29 @@ namespace CentralDeErros.Datas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Error",
+                name: "Log",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "smalldatetime", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(type: "varchar(100)", nullable: false),
                     Details = table.Column<string>(type: "varchar(500)", nullable: false),
                     Origin = table.Column<string>(type: "varchar(100)", nullable: false),
-                    User = table.Column<int>(nullable: false),
-                    Level = table.Column<string>(type: "varchar(5)", nullable: false),
-                    EventId = table.Column<int>(nullable: false),
-                    EnvironmentId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    Frequency = table.Column<int>(nullable: false),
+                    LevelId = table.Column<int>(nullable: false),
+                    Archived = table.Column<bool>(nullable: false),
+                    Environment = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Error", x => x.Id);
+                    table.PrimaryKey("PK_Log", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Error_Environment_EnvironmentId",
-                        column: x => x.EnvironmentId,
-                        principalTable: "Environment",
+                        name: "FK_Log_Level_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "Level",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -232,9 +235,9 @@ namespace CentralDeErros.Datas.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Error_EnvironmentId",
-                table: "Error",
-                column: "EnvironmentId");
+                name: "IX_Log_LevelId",
+                table: "Log",
+                column: "LevelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -255,7 +258,7 @@ namespace CentralDeErros.Datas.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Error");
+                name: "Log");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -264,7 +267,7 @@ namespace CentralDeErros.Datas.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Environment");
+                name: "Level");
         }
     }
 }

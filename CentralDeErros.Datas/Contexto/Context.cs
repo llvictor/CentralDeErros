@@ -11,7 +11,7 @@ namespace CentralDeErros.Datas.Contexto
     public class Context : IdentityDbContext
     {
         public DbSet<Log> Log { get; set; }
-        public DbSet<Domain.Entities.Environment> Ambiente { get; set; } 
+        public DbSet<Level> Level { get; set; } 
 
         public Context(DbContextOptions<Context> options)
             : base(options)
@@ -21,13 +21,13 @@ namespace CentralDeErros.Datas.Contexto
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new LogMap());
-            modelBuilder.ApplyConfiguration(new EnvironmentMap());
+            modelBuilder.ApplyConfiguration(new LevelMap());
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Domain.Entities.Environment>().HasData(new Domain.Entities.Environment { Id = 1, Name = "Produção" });
-            modelBuilder.Entity<Domain.Entities.Environment>().HasData(new Domain.Entities.Environment { Id = 2, Name = "Homologação" });
-            modelBuilder.Entity<Domain.Entities.Environment>().HasData(new Domain.Entities.Environment { Id = 3, Name = "Dev" });
+            modelBuilder.Entity<Level>().HasData(new Level { Id = 1, Name = "Error", CreatedAt = DateTime.Now });
+            modelBuilder.Entity<Level>().HasData(new Level { Id = 2, Name = "Info", CreatedAt = DateTime.Now });
+            modelBuilder.Entity<Level>().HasData(new Level { Id = 3, Name = "Warning", CreatedAt = DateTime.Now });
         }
 
         public override int SaveChanges()

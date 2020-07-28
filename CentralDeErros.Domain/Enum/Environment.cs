@@ -4,10 +4,10 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Enum
 {
-    public enum Level
+    public enum Environment
     {
-        Warning = 0,
-        Error = 1,
-        Info = 2
+        Production = 1,
+        Homologation = 2,
+        Development = 3
     }
 }

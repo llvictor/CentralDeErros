@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CentralDeErros.Domain.Entities
 {
-    public class Environment : EntityBase
+    public class Level : EntityBase
     {
         public string Name { get; set; }
         public ICollection<Log> Logs { get; set; }

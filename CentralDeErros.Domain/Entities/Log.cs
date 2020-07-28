@@ -4,18 +4,22 @@ using System.Collections.Generic;
 using System.Net.Security;
 using System.Reflection.Metadata;
 using System.Text;
+using Environment = CentralDeErros.Domain.Enum.Environment;
 
 namespace CentralDeErros.Domain.Entities
 {
     public class Log : EntityBase
     {
-        public string Description { get; set; } // Microservice error
-        public string Details { get; set; } // A reboot is necessary before package KB4565483 can be changed to the Installed state.
-        public string Origin { get; set; } // 192.168.7.124 / Servicing
-        public int User { get; set; }
-        public Level Level {get; set;} // ERROR
-        public int Events { get; set; }
-        public int EnvironmentId { get; set; }
+        public string Description { get; set; } 
+        public string Details { get; set; }
+        public string Origin { get; set; }
+        public int UserId { get; set; }
+        public int Frequency { get; set; }
+        public int LevelId { get; set; }
+        public Level Level { get; set; }
+
+        public bool Archived {get; set;}
         public Environment Environment { get; set; }
+
     }
 }

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace CentralDeErros.Datas.Map
 {
-    public class EnvironmentMap : IEntityTypeConfiguration<Domain.Entities.Environment>
+    public class LevelMap : IEntityTypeConfiguration<Level>
     {
-        public void Configure(EntityTypeBuilder<Domain.Entities.Environment> builder)
+        public void Configure(EntityTypeBuilder<Level> builder)
         {
-            builder.ToTable("Environment");
+            builder.ToTable("Level");
 
             builder.HasKey(x => x.Id);
 
@@ -20,8 +20,8 @@ namespace CentralDeErros.Datas.Map
                 .IsRequired();
 
             builder.HasMany<Log>(e => e.Logs)
-                .WithOne(ev => ev.Environment)
-                .HasForeignKey(ev => ev.EnvironmentId);
+                .WithOne(ev => ev.Level)
+                .HasForeignKey(ev => ev.LevelId);
         }
     }
 }
